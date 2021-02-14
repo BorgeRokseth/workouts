@@ -1,4 +1,4 @@
-# workouts-vue
+# workout-app
 
 ## Project setup
 ```
