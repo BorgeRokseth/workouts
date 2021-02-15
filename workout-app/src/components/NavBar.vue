@@ -1,10 +1,5 @@
 <template>
-  <v-app>
-    <v-app-bar>
-      <v-app-bar-nav-icon @click="drawerControl" />
-      <v-toolbar-title>Workout Flows</v-toolbar-title>
-    </v-app-bar>
-    <v-navigation-drawer v-model="drawer" app>
+  <v-navigation-drawer v-model="drawer.open" app>
     <v-list>
       <v-subheader>MENU</v-subheader>
       <v-list-item-group v-model="selectedItem">
@@ -19,31 +14,23 @@
       </v-list-item-group>
     </v-list>
   </v-navigation-drawer>
-  </v-app>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import Vue from "vue";
 
-@Component({
-  components: {}
-  })
-export default class App extends Vue {
-  drawer = false;
-  selectedItem = 1;
-  menuItems = [
+export default Vue.extend({
+  name: `NavBar`,
+  props: [`drawer`],
+  data() {
+    return {
+      selectedItem: 1,
+      menuItems: [
         { text: `Exercise`, icon: `mdi-border-color` },
         { text: `Flow`, icon: `mdi-airplane` },
         { text: `Workout`, icon: `mdi-clock` }
-      ];
-
-  drawerControl(){
-    if (this.drawer === false){
-      this.drawer = true;
-    } else{
-      this.drawer = false;
-    }
-    console.log(this.drawer)
+      ]
+    };
   }
-}
+});
 </script>
