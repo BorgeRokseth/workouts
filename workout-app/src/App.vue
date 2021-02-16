@@ -9,7 +9,9 @@
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title v-text="item.text"></v-list-item-title>
+              <v-list-item-title v-text="item.text">
+                <router-link :to="{name: 'exercise list'}"></router-link>
+              </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -24,17 +26,18 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import ExerciseListView from "@/views/ExerciseListView.vue";
 
 @Component({
-  components: {}
+  components: {ExerciseListView}
 })
 export default class App extends Vue {
   drawer = false;
   selectedItem = 1;
   menuItems = [
-    { text: `Exercise`, icon: `mdi-alpha-e-circle` },
-    { text: `Flow`, icon: `mdi-alpha-f-circle` },
-    { text: `Workout`, icon: `mdi-alpha-w-circle` }
+    { text: `Exercise`, icon: `mdi-alpha-e-circle`, link: '/exercises' },
+    { text: `Flow`, icon: `mdi-alpha-f-circle`, link: '/flows' },
+    { text: `Workout`, icon: `mdi-alpha-w-circle`, link: 'workouts' }
   ];
 
   drawerControl() {
