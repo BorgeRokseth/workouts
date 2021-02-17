@@ -1,5 +1,9 @@
 <template>
-$END$
+  <v-container>
+    <v-card>
+      <v-card-title> Flow list view</v-card-title>
+    </v-card>
+  </v-container>
 </template>
 
 <script>

@@ -1,13 +1,11 @@
 <template>
-$END$
+  <h3>Workouts List View</h3>
 </template>
 
 <script>
 export default {
-name: "WorkoutListView"
-}
+  name: "WorkoutListView"
+};
 </script>
-
-<style scoped>
-
+<style>
 </style>
