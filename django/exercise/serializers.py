@@ -3,6 +3,7 @@ from .models import Exercise
 
 class ExerciseSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False, read_only=True)
+    author = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Exercise
