@@ -7,5 +7,4 @@ export default {
   name: "WorkoutListView"
 };
 </script>
-<style>
-</style>
+<style></style>

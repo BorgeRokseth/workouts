@@ -8,9 +8,8 @@
           </v-list-item-icon>
           <v-list-item-content>
             <router-link :to="item.link">
-            <v-list-item-title v-text="item.text">
-            </v-list-item-title>
-              </router-link>
+              <v-list-item-title v-text="item.text"> </v-list-item-title>
+            </router-link>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -19,21 +18,20 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'NavBar',
-  props: ['drawer'],
+  name: "NavBar",
+  props: ["drawer"],
   data() {
     return {
-      menuItems: [{ text: "Exercise", icon: `mdi-alpha-e-circle`, link: "/exercises" },
+      menuItems: [
+        { text: "Exercise", icon: `mdi-alpha-e-circle`, link: "/exercises" },
         { text: "Flow", icon: `mdi-alpha-f-circle`, link: "/flows" },
-        { text: "Workout", icon: `mdi-alpha-w-circle`, link: "/workouts" }]
+        { text: "Workout", icon: `mdi-alpha-w-circle`, link: "/workouts" }
+      ]
     };
   }
-})
-
+});
 </script>
-<style scoped>
-</style>
+<style scoped></style>

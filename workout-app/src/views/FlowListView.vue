@@ -8,10 +8,8 @@
 
 <script>
 export default {
-name: "FlowListView"
-}
+  name: "FlowListView"
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

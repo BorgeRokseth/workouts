@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <nav-bar :drawer="drawer"/>
+    <nav-bar :drawer="drawer" />
     <v-app-bar app dark>
-      <v-app-bar-nav-icon @click.stop="drawer.open = !drawer.open"  />
+      <v-app-bar-nav-icon @click.stop="drawer.open = !drawer.open" />
       <v-toolbar-title>Workout Flows</v-toolbar-title>
     </v-app-bar>
     <v-main>
@@ -16,7 +16,7 @@ import { Component, Vue } from "vue-property-decorator";
 import NavBar from "@/components/NavBar.vue";
 
 @Component({
-  components: {NavBar}
+  components: { NavBar }
 })
 export default class App extends Vue {
   drawer = { open: false };

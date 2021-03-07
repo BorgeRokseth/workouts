@@ -57,7 +57,7 @@ import axios, { AxiosResponse } from "axios";
 
 @Component
 export default class ExerciseListView extends Vue {
-  title = "Exersice list view";
+  title = "Exercise list view";
   exercises: Exercise[] | null = null;
   errorMsg = " ";
 
@@ -99,4 +99,3 @@ export default class ExerciseListView extends Vue {
 </script>
 
 <style scoped></style>
-
