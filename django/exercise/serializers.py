@@ -13,5 +13,6 @@ class ExerciseSerializer(serializers.ModelSerializer):
             # "instruction_video",
             "silent",
             "equipment",
-            "type"
+            "type",
+            "author"
         ]

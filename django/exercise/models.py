@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+
 
 class TypesOfExercises(models.TextChoices):
     CARDIO = "Cardio", "Cardio"
@@ -13,4 +15,7 @@ class Exercise(models.Model):
     silent = models.BooleanField(default=False)
     equipment = models.BooleanField(default=False)
     type = models.CharField(max_length=100, choices=TypesOfExercises.choices)
+    author = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="exercises")
 
+    def __str__(self):
+        return self.name
