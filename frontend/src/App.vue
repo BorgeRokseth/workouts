@@ -4,6 +4,8 @@
     <v-app-bar app dark>
       <v-app-bar-nav-icon @click.stop="drawer.open = !drawer.open" />
       <v-toolbar-title>Workout Flows</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <a class="btn" href="/accounts/logout/">Logout</a>
     </v-app-bar>
     <v-main>
       <router-view></router-view>
