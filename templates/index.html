@@ -1,19 +1,12 @@
+{% extends "base.html" %}
 {% load render_bundle from webpack_loader  %}
 
-<!DOCTYPE html>
-<html lang="en">
-<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
-<head>
-    <meta charset="UTF-8">
-    <title>WorkoutFlows</title>
-</head>
-<body>
+{% block content %}
+    <noscript>
+        <strong> we're sorru but frontend doesn't work properly without JavaScript enabled</strong>
+    </noscript>
 
-    <h1> Vue JS</h1>
     <div id="app"></div>
 
     {% render_bundle 'app' %}
-
-</body>
-</html>
+{% endblock %}
