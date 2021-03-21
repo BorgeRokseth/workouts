@@ -14,7 +14,7 @@ class ExerciseListView(APIView):
     """
     permission_classes = [IsAuthorOrReadOnly, IsAuthenticated]
     def get(self, request):
-        exercise  = Exercise.objects.all()
+        exercise = Exercise.objects.filter(author=request.user)
         serializer = ExerciseSerializer(exercise, many=True)
         return Response(serializer.data)
 

@@ -1,11 +1,11 @@
 <template>
   <v-app>
-    <nav-bar :drawer="drawer" />
+    <NavBar :drawer="drawer"/>
     <v-app-bar app dark>
-      <v-app-bar-nav-icon @click.stop="drawer.open = !drawer.open" />
+      <v-app-bar-nav-icon @click.stop="drawer.open = !drawer.open"/>
       <v-toolbar-title>Workout Flows</v-toolbar-title>
       <v-spacer></v-spacer>
-      <a class="btn" href="/accounts/logout/">Logout</a>
+      <v-btn href="/accounts/logout/" small plain>Logout {{ user }}</v-btn>
     </v-app-bar>
     <v-main>
       <router-view></router-view>
@@ -13,14 +13,32 @@
   </v-app>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import NavBar from "@/components/NavBar.vue";
+<script>
+import NavBar from "@/components/NavBar";
+import {apiService} from "@/common/api.service";
 
-@Component({
-  components: { NavBar }
-})
-export default class App extends Vue {
-  drawer = { open: false };
-}
+export default {
+  name: "App",
+  components: {
+    NavBar
+  },
+  data() {
+    return {
+      drawer: {open: false},
+      user: " "
+    };
+  },
+
+  methods: {
+    getUserDetails() {
+      const endpoint = "/api/user/";
+      apiService(endpoint).then(data => {
+        this.user = data.username;
+      });
+    }
+  },
+  created() {
+    this.getUserDetails();
+  }
+};
 </script>
