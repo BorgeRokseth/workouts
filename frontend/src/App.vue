@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <NavBar :drawer="drawer"/>
+    <NavBar :drawer="drawer" />
     <v-app-bar app dark>
-      <v-app-bar-nav-icon @click.stop="drawer.open = !drawer.open"/>
+      <v-app-bar-nav-icon @click.stop="drawer.open = !drawer.open" />
       <v-toolbar-title>Workout Flows</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn href="/accounts/logout/" small plain>Logout {{ user }}</v-btn>
@@ -15,7 +15,7 @@
 
 <script>
 import NavBar from "@/components/NavBar";
-import {apiService} from "@/common/api.service";
+import { apiService } from "@/common/api.service";
 
 export default {
   name: "App",
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      drawer: {open: false},
+      drawer: { open: false },
       user: " "
     };
   },

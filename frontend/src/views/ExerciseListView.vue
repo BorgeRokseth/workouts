@@ -39,34 +39,82 @@
           </tr>
         </tbody>
       </v-simple-table>
+      <v-card-actions>
+        <v-btn @click="createNewExercise">
+          <v-icon> mdi-plus-box </v-icon>
+        </v-btn>
+      </v-card-actions>
     </v-card>
+    <EditExerciseDialog
+      :show-dialog.sync="showNewExerciseDialog"
+      :id="newExerciseId"
+      @close:dialog="closeNewExerciseDialog"
+    />
   </v-container>
 </template>
 
 <script>
 import { apiService } from "@/common/api.service";
+import EditExerciseDialog from "@/components/EditExerciseDialog";
 
 export default {
   name: "ExerciseListView",
+  components: {
+    EditExerciseDialog
+  },
   data() {
     return {
-      exercises: []
+      exercises: [],
+      showNewExerciseDialog: false,
+      newExerciseId: 1,
+      user: null
     };
   },
   methods: {
     getExercises() {
       const endpoint = "/api/exercises/";
       apiService(endpoint).then(data => {
-        this.exercises.push(...data);
+        this.exercises = data;
+      });
+    },
+    getUserDetails() {
+      const endpoint = "/api/user/";
+      apiService(endpoint).then(data => {
+        this.user = data.username;
+      });
+    },
+    createExercise(exercise) {
+      const endpoint = "/api/exercises/";
+      apiService(endpoint, "POST", { content: exercise }).then(data => {
+        console.log("data: ", data);
+        this.newExercise = data;
+        this.newExerciseId = data.id;
       });
     },
     getAnswer(state) {
       if (state) return "Yes";
       return "No";
+    },
+    createNewExercise() {
+      const newExercise = {
+        name: "New Exercise",
+        description: "Describe the exercise",
+        silent: true,
+        equipment: true,
+        type: "Cardio",
+        author: this.user
+      };
+      this.createExercise(newExercise);
+      this.showNewExerciseDialog = true;
+    },
+    closeNewExerciseDialog(){
+      this.getExercises()
+      this.showNewExerciseDialog = false
     }
   },
   created() {
     this.getExercises();
+    this.getUserDetails();
     document.title = "WorkoutFlows";
   }
 };
