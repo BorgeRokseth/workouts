@@ -6,23 +6,48 @@
           <span class="headline">Edit Exercise</span>
         </v-card-title>
         <v-card-text>
-          <v-text-field
+          <v-text-field v-if="exerciseToEdit"
+            label="Name of Exercise"
+            v-model="exercise.name"
+          ></v-text-field>
+          <v-text-field v-else
             label="Name of Exercise"
             v-model="newName"
           ></v-text-field>
-          <v-textarea
+          <v-textarea v-if="exerciseToEdit"
+            label="Exercise Description"
+            v-model="exercise.description"
+          ></v-textarea>
+          <v-textarea v-else
             label="Exercise Description"
             v-model="newDescription"
           ></v-textarea>
           <v-row>
-            <v-col>
+            <v-col v-if="exerciseToEdit">
+              Silent:
+              <v-radio-group v-model="exercise.silent" row>
+                <v-radio label="Yes!" :value="true"></v-radio>
+                <v-radio label="No!" :value="false"></v-radio>
+              </v-radio-group>
+            </v-col>
+            <v-col v-else>
               Silent:
               <v-radio-group v-model="silent" row>
                 <v-radio label="Yes!" :value="true"></v-radio>
                 <v-radio label="No!" :value="false"></v-radio>
               </v-radio-group>
             </v-col>
-            <v-col>
+            <v-col v-if="exerciseToEdit">
+              Equipment:
+              <v-radio-group v-model="exercise.equipment" row>
+                <v-radio
+                  label="Yes, you need equipment!"
+                  :value="true"
+                ></v-radio>
+                <v-radio label="No equipment needed!" :value="false"></v-radio>
+              </v-radio-group>
+            </v-col>
+            <v-col v-else>
               Equipment:
               <v-radio-group v-model="equipment" row>
                 <v-radio
@@ -32,7 +57,14 @@
                 <v-radio label="No equipment needed!" :value="false"></v-radio>
               </v-radio-group>
             </v-col>
-            <v-col>
+            <v-col v-if="exerciseToEdit">
+              <v-select
+                v-model="exercise.type"
+                :items="typeItems"
+                label="Type"
+              ></v-select>
+            </v-col>
+            <v-col v-else>
               <v-select
                 v-model="typeOfExercise"
                 :items="typeItems"
@@ -62,11 +94,20 @@ export default {
   name: "EditExerciseDialog",
   props: {
     id: Number,
-    showDialog: Boolean
+    showDialog: Boolean,
+    exerciseToEdit: {
+      id: Number,
+      name: String,
+      description: String,
+      silent: Boolean,
+      equipment: Boolean,
+      typeOfExercise: String,
+      author: String
+    }
   },
   data() {
     return {
-      exercise: {},
+      exercise: this.exerciseToEdit,
       dialog: true,
       newName: " ",
       newDescription: " ",
@@ -91,6 +132,7 @@ export default {
       return "No";
     },
     closeDialog() {
+      this.$emit('refresh:exercise', {})
       this.$emit("close:dialog", {});
     },
     updateExercise(exercise) {
@@ -100,17 +142,28 @@ export default {
       });
     },
     save() {
-      const exerciseUpdates = {
-        name: this.newName,
-        description: this.newDescription,
-        silent: this.silent,
-        equipment: this.equipment,
-        type: this.typeOfExercise
-      };
-      console.log(exerciseUpdates);
-      this.updateExercise(exerciseUpdates);
+      if (this.exerciseToEdit) {
+        const exerciseUpdates = {
+          name: this.exercise.name,
+          description: this.exercise.description,
+          silent: this.exercise.silent,
+          equipment: this.exercise.equipment,
+          type: this.exercise.type
+        };
+        this.updateExercise(this.exercise)
+      } else {
+        const exerciseUpdates = {
+          name: this.newName,
+          description: this.newDescription,
+          silent: this.silent,
+          equipment: this.equipment,
+          type: this.typeOfExercise
+        };
+        this.updateExercise(exerciseUpdates);
+      }
+      this.$emit('refresh:exercise', {})
       this.closeDialog();
-    }
+    },
   },
   created() {
     this.getExerciseDetails();

@@ -22,18 +22,25 @@
           </v-col>
           <v-col>
             <b>Type of exercise: </b>
-            <em>{{ getAnswer(exercise.type) }}</em>
+            <em>{{ exercise.type }}</em>
           </v-col>
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn small>
+        <v-btn small @click="editExercise">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
 
-        <v-btn small>
+        <v-btn small @click="deleteExercise">
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
+        <EditExerciseDialog
+            :show-dialog="showEditExerciseDialog"
+            :id="id"
+            :exercise-to-edit="exercise"
+            @close:dialog="closeEditExerciseDialog"
+            @refresh:exercise="getExerciseDetails"
+        />
       </v-card-actions>
     </v-card>
   </v-container>
@@ -41,9 +48,13 @@
 
 <script>
 import { apiService } from "@/common/api.service";
+import EditExerciseDialog from "@/components/EditExerciseDialog";
 
 export default {
   name: "ExerciseDetails",
+  components: {
+    EditExerciseDialog
+  },
   props: {
     id: {
       type: Number,
@@ -52,7 +63,8 @@ export default {
   },
   data() {
     return {
-      exercise: {}
+      exercise: {},
+      showEditExerciseDialog: false
     };
   },
   methods: {
@@ -69,6 +81,18 @@ export default {
     getAnswer(state) {
       if (state) return "Yes";
       return "No";
+    },
+    editExercise(){
+      this.showEditExerciseDialog = true;
+    },
+    closeEditExerciseDialog(){
+      this.showEditExerciseDialog = false;
+    },
+    deleteExercise(){
+      const endpoint = `/api/exercises/${this.id}/`;
+      const method = "DELETE";
+      apiService(endpoint, method).then();
+      this.$router.push("/exercises")
     }
   },
   created() {

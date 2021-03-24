@@ -46,9 +46,10 @@
       </v-card-actions>
     </v-card>
     <EditExerciseDialog
-      :show-dialog.sync="showNewExerciseDialog"
+      :show-dialog="showNewExerciseDialog"
       :id="newExerciseId"
       @close:dialog="closeNewExerciseDialog"
+      @refresh:exercise="getExercises"
     />
   </v-container>
 </template>
@@ -86,7 +87,6 @@ export default {
     createExercise(exercise) {
       const endpoint = "/api/exercises/";
       apiService(endpoint, "POST", { content: exercise }).then(data => {
-        console.log("data: ", data);
         this.newExercise = data;
         this.newExerciseId = data.id;
       });
