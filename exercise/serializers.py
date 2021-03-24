@@ -11,7 +11,6 @@ class ExerciseSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "description",
-            # "instruction_video",
             "silent",
             "equipment",
             "type",

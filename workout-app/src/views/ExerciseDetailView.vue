@@ -60,14 +60,14 @@ export default class ExerciseDetailView extends Vue {
   updateExercise(data: Exercise): Promise<AxiosResponse<Exercise>> {
     if (this.exercise.id !== null) {
       return axios
-          .put<Exercise>(
-              `http://127.0.0.1:8095/api/exercises/${this.exercise.id}/`,
-              data
-          )
-          .then(res =>
-              axios.get(`http://127.0.0.1:8095/api/exercises/${res.data.id}`)
-          )
-          .then(res => (this.exercise = res.data));
+        .put<Exercise>(
+          `http://127.0.0.1:8095/api/exercises/${this.exercise.id}/`,
+          data
+        )
+        .then(res =>
+          axios.get(`http://127.0.0.1:8095/api/exercises/${res.data.id}`)
+        )
+        .then(res => (this.exercise = res.data));
     }
   }
 }

@@ -19,7 +19,7 @@ class ExerciseListView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = ExerciseSerializer(data=request.data)
+        serializer = ExerciseSerializer(data=request.data['content'])
         if serializer.is_valid():
             serializer.save(author=request.user)
             return Response(serializer.data)
@@ -42,10 +42,11 @@ class ExerciseDetailView(APIView):
 
     def put(self, request, pk):
         exercise = self.get_object(pk)
-        serializer = ExerciseSerializer(exercise, data=request.data)
+        serializer = ExerciseSerializer(exercise, data=request.data['content'])
         if serializer.is_valid():
             serializer.save(author=request.user)
             return Response(serializer.data)
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):

@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <nav-bar :drawer="drawer"/>
+    <nav-bar :drawer="drawer" />
     <v-app-bar app>
-      <v-app-bar-nav-icon @click.stop="drawer.open = !drawer.open"/>
+      <v-app-bar-nav-icon @click.stop="drawer.open = !drawer.open" />
       <v-toolbar-title>Workout Flows</v-toolbar-title>
     </v-app-bar>
     <v-main>
