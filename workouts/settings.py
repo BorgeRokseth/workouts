@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'webpack_loader',
 
     'users',
-    'exercise'
+    'exercise',
+    'equipment'
 ]
 
 MIDDLEWARE = [

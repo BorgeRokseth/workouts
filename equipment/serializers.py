@@ -1,19 +1,15 @@
 from rest_framework import serializers
-from .models import Exercise
+from .models import  Equipment
 
-class ExerciseSerializer(serializers.ModelSerializer):
+class EquipmentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False, read_only=True)
     author = serializers.StringRelatedField(read_only=True)
 
     class Meta:
-        model = Exercise
+        model = Equipment
         fields = [
             "id",
             "name",
             "description",
-            "silent",
-            "equipment",
-            "type",
             "author"
         ]
-
