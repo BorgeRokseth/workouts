@@ -5,8 +5,8 @@ from rest_framework import status
 from exercise.permissions import IsAuthorOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Exercise
-from .serializers import ExerciseSerializer
+from .models import Exercise, Equipment
+from .serializers import ExerciseSerializer, EquipmentSerializer
 
 class ExerciseListView(APIView):
     """
@@ -54,3 +54,20 @@ class ExerciseDetailView(APIView):
         exercise.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class EquipmentListView(APIView):
+    """
+    View to list all exercises in the database and post new ones
+    """
+    permission_classes = [IsAuthorOrReadOnly, IsAuthenticated]
+
+    def get(self, request):
+        equipment = Equipment.objects.filter(author=request.user)
+        serializer = EquipmentSerializer(equipment, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = EquipmentSerializer(data=request.data['content'])
+        if serializer.is_valid():
+            serializer.save(author=request.user)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
