@@ -13,7 +13,7 @@ class Exercise(models.Model):
     description = models.TextField("Description of exercise")
     # instruction_video = models.URLField(max_length=500)
     silent = models.BooleanField(default=False)
-    equipment = models.BooleanField(default=False)
+    equipment = models.CharField(max_length=120, default="None")
     type = models.CharField(max_length=100, choices=TypesOfExercises.choices)
     author = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="exercises")
 
