@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import  Equipment
+from .models import Equipment
 
 class EquipmentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False, read_only=True)

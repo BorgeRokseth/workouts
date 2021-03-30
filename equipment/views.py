@@ -21,7 +21,7 @@ class EquipmentListView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = EquipmentSerializer(data=request.data['content'])
+        serializer = EquipmentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(author=request.user)
             return Response(serializer.data)
@@ -40,11 +40,12 @@ class EquipmentDetailView(APIView):
     def get(self, request, pk):
         equipment = self.get_object(pk)
         serializer = EquipmentSerializer(equipment)
+        print("Equipment response: ", serializer.data)
         return Response(serializer.data)
 
     def put(self, request, pk):
         equipment = self.get_object(pk)
-        serializer = EquipmentSerializer(equipment, data=request.data['content'])
+        serializer = EquipmentSerializer(equipment, data=request.data)
         if serializer.is_valid():
             serializer.save(author=request.user)
             return Response(serializer.data)
