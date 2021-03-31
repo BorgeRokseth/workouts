@@ -34,7 +34,9 @@
               </router-link>
             </td>
             <td>{{ getAnswer(item.silent) }}</td>
-            <td>{{ getAnswer(item.equipment) }}</td>
+            <td>
+              {{ isEquipment(item.equipment) }}
+            </td>
             <td>{{ item.type }}</td>
           </tr>
         </tbody>
@@ -48,6 +50,7 @@
     <EditExerciseDialog
       :show-dialog="showNewExerciseDialog"
       :id="newExerciseId"
+      :user="userId"
       @close:dialog="closeNewExerciseDialog"
       @refresh:exercise="getExercises"
     />
@@ -68,7 +71,8 @@ export default {
       exercises: [],
       showNewExerciseDialog: false,
       newExerciseId: 1,
-      user: null
+      user: null,
+      userId: null
     };
   },
   methods: {
@@ -82,6 +86,7 @@ export default {
       const endpoint = "/api/user/";
       apiService(endpoint).then(data => {
         this.user = data.username;
+        this.userId = data.id;
       });
     },
     createExercise(exercise) {
@@ -100,16 +105,23 @@ export default {
         name: "New Exercise",
         description: "Describe the exercise",
         silent: true,
-        equipment: true,
+        equipment: [],
         type: "Cardio",
         author: this.user
       };
       this.createExercise(newExercise);
       this.showNewExerciseDialog = true;
     },
-    closeNewExerciseDialog(){
-      this.getExercises()
-      this.showNewExerciseDialog = false
+    closeNewExerciseDialog() {
+      this.getExercises();
+      this.showNewExerciseDialog = false;
+    },
+    isEquipment(equipmentIds) {
+      if (equipmentIds.length === 0) {
+        return "No";
+      } else {
+        return "Yes";
+      }
     }
   },
   created() {
