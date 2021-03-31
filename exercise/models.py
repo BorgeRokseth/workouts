@@ -20,13 +20,3 @@ class Exercise(models.Model):
     def __str__(self):
         return self.name
 
-
-class SubFlow(models.Model):
-    exercise = models.ForeignKey(to=Exercise, on_delete=models.CASCADE)
-    reps = models.PositiveIntegerField("Number of repetitions")
-
-
-class Flow(models.Model):
-    name = models.TextField("Name of Flow")
-    exercise = models.ForeignKey(to=SubFlow, on_delete=models.CASCADE)
-    sets = models.PositiveIntegerField("Number of sets")
