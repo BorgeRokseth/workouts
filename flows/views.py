@@ -54,3 +54,50 @@ class FlowDetailView(APIView):
         flow = self.get_object(pk)
         flow.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class SetListView(APIView):
+    """
+    View to list all sets in the database and post new ones
+    """
+    permission_classes = [IsAuthorOrReadOnly, IsAuthenticated]
+
+    def get(self, request):
+        set = Set.objects.filter(author=request.user)
+        serializer = SetSerializer(set, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = SetSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(author=request.user)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SetDetailView(APIView):
+    """
+    View to see and edit details for, and delete, exercise
+    """
+    permission_classes = [IsAuthorOrReadOnly, IsAuthenticated]
+
+    def get_object(self, pk):
+        return get_object_or_404(Set, pk=pk)
+
+    def get(self, request, pk):
+        set = self.get_object(pk)
+        serializer = SetSerializer(set)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        set = self.get_object(pk)
+        serializer = SetSerializer(set, data=request.data)
+        if serializer.is_valid():
+            serializer.save(author=request.user)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        set = self.get_object(pk)
+        set.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

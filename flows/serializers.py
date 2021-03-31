@@ -17,6 +17,7 @@ class SetSerializer(serializers.ModelSerializer):
 class FlowSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False, read_only=True)
     author = serializers.StringRelatedField(read_only=True)
+    exercise = SetSerializer(many=True)
 
     class Meta:
         model = Flow

@@ -1,3 +1,5 @@
 from django.contrib import admin
+from flows.models import Flow, Set
 
-# Register your models here.
+admin.site.register(Flow)
+admin.site.register(Set)

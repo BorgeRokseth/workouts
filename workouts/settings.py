@@ -55,7 +55,8 @@ INSTALLED_APPS = [
 
     'users',
     'exercise',
-    'equipment'
+    'equipment',
+    'flows'
 ]
 
 MIDDLEWARE = [

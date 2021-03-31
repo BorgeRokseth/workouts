@@ -33,5 +33,6 @@ urlpatterns = [
 
     path('api/exercises/', include('exercise.urls')),
     path('api/equipment/', include('equipment.urls')),
+    path('api/flows/', include('flows.urls')),
     re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point")
 ]
